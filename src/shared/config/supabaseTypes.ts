@@ -12,11 +12,11 @@ export type Database = {
       links: {
         Row: {
           created_at: string
-          description: string | null
+          description: string
           id: number
           image: string | null
-          title: string | null
-          url: string | null
+          title: string
+          url: string
         }
         Insert: {
           created_at?: string

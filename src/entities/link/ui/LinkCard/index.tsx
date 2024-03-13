@@ -9,9 +9,9 @@ const cx = classNames.bind(styles);
 
 interface Props extends Link {}
 
-export function LinkCard({ title, description, image, created_at }: Props) {
+export function LinkCard({ title, description, image, created_at, url }: Props) {
   return (
-    <a className={cx("container")}>
+    <a className={cx("container")} href={url} target="_blank">
       <div className={cx("img-wrapper")}>
         <ImageWithFallback src={image} alt="link meta data image" />
       </div>
