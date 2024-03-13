@@ -1,13 +1,13 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "solid" | "second";
 }
 

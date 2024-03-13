@@ -14,7 +14,6 @@ interface Props extends Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> {
 
 export function ImageWithFallback({ src, ...rest }: Props) {
   const [fallback, setFallback] = useState(false);
-  console.log(src);
   if (!src || fallback) {
     return (
       <div className={cx("fallback-wrapper")}>
@@ -28,7 +27,6 @@ export function ImageWithFallback({ src, ...rest }: Props) {
       {...rest}
       src={src}
       onError={() => {
-        console.log("?");
         setFallback(true);
       }}
     />

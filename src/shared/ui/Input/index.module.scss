@@ -1,0 +1,14 @@
+.container {
+  border-radius: 6px;
+  background: #FFF;
+  padding: 12px 24px;
+
+  input {
+    width: 100%;
+  }
+  &.hidden {
+    visibility: hidden;
+    height: 0;    
+    padding: 0;
+  }
+}

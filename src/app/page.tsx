@@ -7,6 +7,8 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
+export const revalidate = 36000000; 
+
 export default function Home() {
   return (
     <main className={cx("main")}>

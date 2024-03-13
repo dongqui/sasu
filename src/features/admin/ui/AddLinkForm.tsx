@@ -5,15 +5,13 @@ import { ChangeEventHandler, FormEvent, useState } from "react";
 import { addLinkAction } from "../api/addLinkAction";
 import { getLinkMetaDataApi } from "../api";
 import { LinkCard } from "@/entities/link/ui/LinkCard";
+import { Input, Button } from "@/shared/ui";
+import { useLink } from "../models";
 
 export function AddLinkForm() {
   const [url, setUrl] = useState("");
-  const [link, setLink] = useState({
-    title: "",
-    description: "",
-    image: "",
-    url: "",
-  });
+  const [link, setLink] = useLink();
+
 
   const handleChangeURL: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUrl(e.target.value);
@@ -34,30 +32,40 @@ export function AddLinkForm() {
   return (
     <>
       <form onSubmit={getLinkMetaData}>
-        <input name="link" onChange={handleChangeURL} />
-        <button type="submit">불러오기</button>
+        <Input name="link" onChange={handleChangeURL} placeholder="URL"/>
+        <Button type="submit">불러오기</Button>
       </form>
 
-      <form action={addLinkAction}>
-        <input
+      <form onSubmit={async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target as HTMLFormElement);
+          await addLinkAction(formData);
+          setLink({
+            title: "",
+            description: "",
+            image: "",
+            url: "",
+          });
+        }}>
+        <Input
           name="title"
           value={link.title}
           placeholder="title"
           onChange={handleChangeTitle}
         />
-        <input
+        <Input
           name="description"
           value={link.description}
           placeholder="description"
           onChange={handleChangeDescription}
         />
-        <input name="url" value={link.url} hidden />
-        <input name="image" value={link.image} hidden />
-        <button type="submit">링크 추가하기</button>
+        <Input name="url" value={link.url} hidden readOnly/>
+        <Input name="image" value={link.image} hidden readOnly/>
+        <Button type="submit">링크 추가하기</Button>
       </form>
 
       <LinkCard
-        id="temporal"
+        id={1}
         {...link}
         created_at={String(new Date().getTime())}
       />

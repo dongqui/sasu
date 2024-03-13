@@ -1,8 +1,3 @@
-export interface Link {
-  id: string;
-  url: string;
-  title: string;
-  description: string;
-  image: string | null;
-  created_at: string;
-}
+import { Database } from "./supabaseTypes";
+
+export type Link = Database['public']['Tables']['links']['Row'];
