@@ -1,0 +1,59 @@
+.container {
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+
+  .img-wrapper {
+    background-color: #dce2fa;
+    height: 200px;
+    width: 100%;
+  }
+  img {
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .content {
+    font-family: "Apple SD Gothic Neo";
+
+    h2 {
+      color: var(--blue_1, #374579);
+      font-weight: 700;
+      line-height: 130%; /* 20.8px */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .title {
+      margin-top: 4px;
+      color: var(--blue_2, #7a83a6);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    .info {
+      margin-top: 6px;
+      color: var(--blue_2, #7a83a6);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+}

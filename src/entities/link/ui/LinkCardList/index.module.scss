@@ -1,0 +1,24 @@
+.container {
+  // display: flex;
+  // gap: 32px;
+  // margin-top: 80px;
+  // flex-wrap: wrap;
+  // li {
+  //   margin-top: 32px;
+  //   flex-basis: 400px;
+  //   flex-shrink: 1;
+  //   flex-grow: 0;
+  // }
+  grid-gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 400px));
+  justify-content: center;
+
+  @media screen and (max-width: 984px) {
+    grid-template-columns: repeat(2, minmax(300px, 400px));
+  }
+
+  @media screen and (max-width: 652px) {
+    grid-template-columns: repeat(1, minmax(300px, 400px));
+  }
+}
