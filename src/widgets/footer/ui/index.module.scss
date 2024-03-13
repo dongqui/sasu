@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  color: #374579;
+  font-family: Verdana;
+  font-weight: 700;
+  line-height: 2.4rem;
+  margin-top: auto;
+  a {
+    color: #7a83a6;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
