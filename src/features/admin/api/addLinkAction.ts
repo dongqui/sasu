@@ -1,6 +1,7 @@
 "use server";
 
 import supabase from "@/shared/config/supabase";
+import { revalidatePath } from "next/cache";
 
 export async function addLinkAction(formData: FormData) {
   // TODO: 타입 해결하기
@@ -30,5 +31,7 @@ export async function addLinkAction(formData: FormData) {
     await supabase
       .from("links")
       .insert({ url, title, description, image: result?.data?.publicUrl });
+
+    revalidatePath('/');
   }   
 }
