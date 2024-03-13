@@ -11,6 +11,7 @@ import { useLink } from "../models";
 export function AddLinkForm() {
   const [url, setUrl] = useState("");
   const [link, setLink] = useLink();
+  const [loading, setLoading] = useState(false);
 
 
   const handleChangeURL: ChangeEventHandler<HTMLInputElement> = (e) =>
@@ -38,6 +39,7 @@ export function AddLinkForm() {
 
       <form onSubmit={async (e) => {
           e.preventDefault();
+          setLoading(true);
           const formData = new FormData(e.target as HTMLFormElement);
           await addLinkAction(formData);
           setLink({
@@ -46,6 +48,7 @@ export function AddLinkForm() {
             image: "",
             url: "",
           });
+          setLoading(false);
         }}>
         <Input
           name="title"
@@ -61,7 +64,7 @@ export function AddLinkForm() {
         />
         <Input name="url" value={link.url} hidden readOnly/>
         <Input name="image" value={link.image} hidden readOnly/>
-        <Button type="submit">링크 추가하기</Button>
+        <Button type="submit" disabled={loading}>링크 추가하기</Button>
       </form>
 
       <LinkCard
