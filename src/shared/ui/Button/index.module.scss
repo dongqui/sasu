@@ -1,0 +1,18 @@
+.button {
+  padding: 12px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  &.solid {
+    background: #4376f8;
+    color: #fff;
+  }
+
+  &.second {
+    background: #dce2fa;
+    color: #374579;
+  }
+}
