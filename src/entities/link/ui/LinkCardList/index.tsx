@@ -1,5 +1,5 @@
 import { LinkCard } from "../LinkCard";
-import { getLinks } from "../../api";
+import supabase from "@/shared/config/supabase";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -7,11 +7,11 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 export async function LinkCardList() {
-  const links = await getLinks();
+  const links = await supabase.from("Link").select();
 
   return (
     <ul className={cx("container")}>
-      {links?.map((link) => (
+      {links.data?.map((link) => (
         <li key={link.id}>
           <LinkCard {...link} />
         </li>

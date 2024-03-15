@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 export default function Admin() {
   return (
-    <main className={cx('main')}>
+    <main className={cx("main")}>
       <div className={cx("container")}>
         <AddLinkForm />
       </div>

@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { produce } from "immer";
 
-import { getViewCounts, updateAndGetViewCount } from "@/entities/link/api";
+import {
+  getViewCounts,
+  updateAndGetViewCount,
+} from "@/entities/link/api/viewCounts";
 import type { ViewCount } from "@/shared/config/types";
 
 export function useViewCountMutation() {
@@ -10,20 +12,16 @@ export function useViewCountMutation() {
   return useMutation<ViewCount, Error, number>({
     mutationFn: (linkId) => updateAndGetViewCount(linkId),
     onSuccess(data) {
-      return produce(
-        queryClient.getQueryData<ViewCount[]>(["viewCounts"]),
-        (draft) => {
-          if (!draft) return [];
-
-          const index = draft?.findIndex(
-            (viewCount) => viewCount.linkId === data.linkId
-          );
-
-          if (index > -1) {
-            draft?.splice(index, 1, data);
-          }
-        }
-      );
+      const oldViewCounts = queryClient.getQueryData<ViewCount[]>([
+        "viewCounts",
+      ]);
+      if (oldViewCounts) {
+        const index = oldViewCounts?.findIndex(
+          (viewCount) => viewCount.linkId === data.linkId
+        );
+        oldViewCounts.splice(index, 1, data);
+        queryClient.setQueryData(["viewCounts"], [...oldViewCounts]);
+      }
     },
   });
 }
@@ -35,5 +33,6 @@ export function useViewCountQuery(id: number) {
     select: (data) => {
       return data?.find((viewCount) => viewCount.linkId === id);
     },
+    refetchOnWindowFocus: false,
   });
 }
