@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 export async function LinkCardList() {
   const links = await getLinks();
-  
+
   return (
     <ul className={cx("container")}>
       {links?.map((link) => (

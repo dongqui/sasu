@@ -1,5 +1,5 @@
 export async function getLinkMetaDataApi(url: string) {
-  const res = await fetch("/admin/api/link", {
+  const res = await fetch("/api/link", {
     method: "POST",
     body: JSON.stringify({ url }),
   });

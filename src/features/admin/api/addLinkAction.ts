@@ -21,17 +21,22 @@ export async function addLinkAction(formData: FormData) {
       cacheControl: "3600",
       upsert: false,
     });
-  
+
   if (pathData) {
-    const result = supabase
-      .storage
-      .from('link-meta-image')
+    const result = supabase.storage
+      .from("link-meta-image")
       .getPublicUrl(pathData?.path);
 
-    await supabase
-      .from("links")
-      .insert({ url, title, description, image: result?.data?.publicUrl });
+    const { data: newLink } = await supabase
+      .from("Link")
+      .insert({ url, title, description, image: result?.data?.publicUrl })
+      .select();
 
-    revalidatePath('/');
-  }   
+    if (newLink) {
+      await supabase
+        .from("ViewCount")
+        .insert({ linkId: newLink[0].id, count: 0 });
+    }
+    revalidatePath("/");
+  }
 }

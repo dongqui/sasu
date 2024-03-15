@@ -1,12 +1,15 @@
-'use client'
+"use client";
 
-import { Provider } from 'jotai'
-import { PropsWithChildren } from 'react'
+import { Provider } from "jotai";
+import { PropsWithChildren } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function Providers({ children }: PropsWithChildren) {
   return (
-    <Provider>
-      {children}
-    </Provider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <Provider>{children}</Provider>
+    </QueryClientProvider>
+  );
 }
