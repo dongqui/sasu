@@ -1,10 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import localFont from "next/font/local";
 
 import Providers from "./Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
+
+const verdana = localFont({
+  src: [
+    {
+      path: "./fonts/Verdana.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Verdana-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "SASOO",
@@ -18,7 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}><Providers>{children}</Providers></body>
+      <body className={verdana.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

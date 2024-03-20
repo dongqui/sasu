@@ -1,5 +1,4 @@
 .container {
-  border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -12,12 +11,18 @@
     img {
       transform: scale(1.1);
     }
+    .content h2 {
+      text-decoration: underline;
+      color: #4376fb;
+    }
   }
 
   .img-wrapper {
     background-color: #dce2fa;
     height: 200px;
     width: 100%;
+    overflow: hidden;
+    border-radius: 6px;
   }
   img {
     transition: transform 0.3s ease;
@@ -31,6 +36,7 @@
 
     h2 {
       color: var(--blue_1, #374579);
+      font-size: 16px;
       font-weight: 700;
       line-height: 130%; /* 20.8px */
       display: -webkit-box;
