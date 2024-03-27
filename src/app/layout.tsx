@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import Providers from "./Providers";
-
 import "./globals.css";
+
+import styles from "./layout.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 const verdana = localFont({
   src: [
@@ -33,7 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={verdana.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <main className={cx("main")}>
+            <div className={cx("container")}>{children}</div>
+          </main>
+        </Providers>
       </body>
     </html>
   );

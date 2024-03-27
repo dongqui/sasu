@@ -40,7 +40,11 @@ li {
   margin: 0;
   list-style: none;
 }
+
+textarea,
 input {
   border: none;
   outline: none;
+  resize: none;
+  overflow: hidden;
 }

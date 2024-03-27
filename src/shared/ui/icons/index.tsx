@@ -15,3 +15,51 @@ export function EmptyImgIcon() {
     </svg>
   );
 }
+
+export function PencilIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_217_2680)">
+        <path
+          d="M2.5 14.375V17.5H5.625L14.8417 8.28334L11.7167 5.15834L2.5 14.375ZM17.2583 5.86667C17.5833 5.54167 17.5833 5.01667 17.2583 4.69167L15.3083 2.74167C14.9833 2.41667 14.4583 2.41667 14.1333 2.74167L12.6083 4.26667L15.7333 7.39167L17.2583 5.86667Z"
+          fill="black"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_217_2680">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+export function TrashBinIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_217_2724)">
+        <path
+          d="M5 15.8333C5 16.75 5.75 17.5 6.66666 17.5H13.3333C14.25 17.5 15 16.75 15 15.8333V5.83333H5V15.8333ZM15.8333 3.33333H12.9167L12.0833 2.5H7.91666L7.08333 3.33333H4.16666V5H15.8333V3.33333Z"
+          fill="black"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_217_2724">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}

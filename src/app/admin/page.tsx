@@ -1,16 +1,12 @@
-import { AddLinkForm } from "@/features/admin/ui";
+import { AdminHeader } from "@/widgets/header/ui/AdminHeader";
 
-import styles from "./page.module.scss";
-import classNames from "classnames/bind";
-
-const cx = classNames.bind(styles);
+import { EditLinkCardList } from "@/entities/link/ui";
 
 export default function Admin() {
   return (
-    <main className={cx("main")}>
-      <div className={cx("container")}>
-        <AddLinkForm />
-      </div>
-    </main>
+    <>
+      <AdminHeader />
+      <EditLinkCardList />
+    </>
   );
 }

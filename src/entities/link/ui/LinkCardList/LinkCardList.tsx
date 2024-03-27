@@ -1,4 +1,4 @@
-import { LinkCard } from "../LinkCard";
+import { LinkCard } from "../LinkCard/LinkCard";
 import supabase from "@/shared/config/supabase";
 
 import styles from "./index.module.scss";
