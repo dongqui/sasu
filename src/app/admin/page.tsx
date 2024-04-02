@@ -1,12 +1,12 @@
 import { AdminHeader } from "@/widgets/header/ui/AdminHeader";
+import { AddLinkForm } from "@/features/admin/ui";
 
-import { EditLinkCardList } from "@/entities/link/ui";
 
 export default function Admin() {
   return (
     <>
       <AdminHeader />
-      <EditLinkCardList />
+      <AddLinkForm/>
     </>
   );
 }

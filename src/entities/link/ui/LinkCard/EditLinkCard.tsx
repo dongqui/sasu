@@ -13,7 +13,8 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-interface Props extends Link {}
+interface Props extends Link {
+}
 
 export function EditLinkCard({
   id,
@@ -21,7 +22,6 @@ export function EditLinkCard({
   description,
   image,
   created_at,
-  url,
 }: Props) {
   const { data: viewCount } = useViewCountQuery(id);
   const [isEdit, setIsEdit] = useState(false);

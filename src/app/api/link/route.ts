@@ -1,4 +1,5 @@
 import { load } from "cheerio";
+import supabase from "@/shared/config/supabase";
 
 export async function POST(request: Request) {
   const { url } = await request.json();
@@ -20,10 +21,17 @@ export async function POST(request: Request) {
     $('meta[name="twitter:image"]').attr("content") ||
     $('meta[property="og:image"]').attr("content");
 
+
+
   return Response.json({
     title,
     description,
-    image,
+    image: image?.startsWith('/') ? url + image : image,
     url,
   });
+}
+
+export async function GET() {
+  const res = await supabase.from("Link").select();
+   return Response.json(res.data);  
 }

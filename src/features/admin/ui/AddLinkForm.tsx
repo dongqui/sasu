@@ -2,75 +2,37 @@
 
 import { ChangeEventHandler, FormEvent, useState } from "react";
 
-import { addLinkAction } from "../api/addLinkAction";
 import { getLinkMetaDataApi } from "../api";
-import { LinkCard } from "@/entities/link/ui/LinkCard/LinkCard";
-import { Input, Button } from "@/shared/ui";
-import { useLink } from "../models";
+import { EditLinkCardList } from "@/entities/link/ui/LinkCardList/EditLinkCardList";
+import { Input, Button, Row } from "@/shared/ui";
+import type { Link } from "@/shared/config/types";
 
 export function AddLinkForm() {
   const [url, setUrl] = useState("");
-  const [link, setLink] = useLink();
+  const [links, setLinks] = useState<Link[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleChangeURL: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUrl(e.target.value);
-  const handleChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setLink((prev) => ({ ...prev, title: e.target?.value }));
-  const handleChangeDescription: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setLink((prev) => ({
-      ...prev,
-      description: e.target?.value,
-    }));
 
   async function getLinkMetaData(e: FormEvent) {
     e.preventDefault();
+    setLoading(true);
     const linkMetaData = await getLinkMetaDataApi(url);
-    setLink(linkMetaData);
+    setLinks(prev => [{...linkMetaData, created_at: new Date(), id: new Date().getTime()}, ...prev]);
+    setLoading(false);
   }
 
   return (
     <>
       <form onSubmit={getLinkMetaData}>
-        <Input name="link" onChange={handleChangeURL} placeholder="URL" />
-        <Button type="submit">불러오기</Button>
+        <Row>
+          <Input name="link" onChange={handleChangeURL} placeholder="URL" fulled/>
+          <Button type="submit" disabled={loading} style={{flexShrink: 0}}>불러오기</Button>
+        </Row>        
       </form>
-
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setLoading(true);
-          const formData = new FormData(e.target as HTMLFormElement);
-          await addLinkAction(formData);
-          setLink({
-            title: "",
-            description: "",
-            image: "",
-            url: "",
-          });
-          setLoading(false);
-        }}
-      >
-        <Input
-          name="title"
-          value={link.title}
-          placeholder="title"
-          onChange={handleChangeTitle}
-        />
-        <Input
-          name="description"
-          value={link.description}
-          placeholder="description"
-          onChange={handleChangeDescription}
-        />
-        <Input name="url" value={link.url} hidden readOnly />
-        <Input name="image" value={link.image} hidden readOnly />
-        <Button type="submit" disabled={loading}>
-          링크 추가하기
-        </Button>
-      </form>
-
-      <LinkCard id={1} {...link} created_at={String(new Date().getTime())} />
+      
+      <EditLinkCardList addedLinks={links}/>
     </>
   );
 }
