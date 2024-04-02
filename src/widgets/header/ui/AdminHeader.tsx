@@ -8,11 +8,8 @@ const cx = classNames.bind(styles);
 export function AdminHeader() {
   return (
     <header className={cx("header")}>
-      <h1>당신의 시작을 응원합니다.</h1>
-      <Row gap={16}>
-        <Button color="second">안내</Button>
-        <Button>제보하기</Button>
-      </Row>
+      <h1>당신의 노동을 응원합니다.</h1>
+      <Button>배포하기</Button>
     </header>
   );
 }

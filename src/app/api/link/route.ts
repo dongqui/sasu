@@ -21,17 +21,15 @@ export async function POST(request: Request) {
     $('meta[name="twitter:image"]').attr("content") ||
     $('meta[property="og:image"]').attr("content");
 
-
-
   return Response.json({
     title,
     description,
-    image: image?.startsWith('/') ? url + image : image,
+    image: image?.startsWith("/") ? url + image : image,
     url,
   });
 }
 
 export async function GET() {
   const res = await supabase.from("Link").select();
-   return Response.json(res.data);  
+  return Response.json(res.data);
 }

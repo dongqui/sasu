@@ -1,1 +1,1 @@
-export { AddLinkForm } from "./AddLinkForm";
+export { AddLink } from "./AddLink";

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -13,25 +13,43 @@ const cx = classNames.bind(styles);
 
 interface Props {
   addedLinks: Link[];
+  deleteAddedLink: (id: number) => void;
+  editAddedLink: (editedLink: Link) => void;
+  deleteDeploiedLink: (id: number) => void;
+  editDeploiedLink: (link: Link) => void;
 }
 
-export function EditLinkCardList({ addedLinks }: Props) {
+export function EditLinkCardList({
+  addedLinks,
+  deleteAddedLink,
+  editAddedLink,
+  deleteDeploiedLink,
+  editDeploiedLink,
+}: Props) {
   const { data: links } = useQuery<Link[]>({
-    queryKey: ['links'],
+    queryKey: ["links"],
     queryFn: getLinks,
-  })
+  });
 
   return (
     <ul className={cx("container")}>
       {addedLinks.map((link) => (
         <li key={link.id}>
-          <EditLinkCard {...link} />
+          <EditLinkCard
+            link={link}
+            onEdit={editAddedLink}
+            onDelete={deleteAddedLink}
+          />
         </li>
       ))}
 
       {links?.map((link) => (
         <li key={link.id}>
-          <EditLinkCard {...link} />
+          <EditLinkCard
+            link={link}
+            onEdit={editDeploiedLink}
+            onDelete={deleteDeploiedLink}
+          />
         </li>
       ))}
     </ul>
