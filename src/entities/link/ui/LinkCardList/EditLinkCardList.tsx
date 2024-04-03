@@ -13,6 +13,7 @@ const cx = classNames.bind(styles);
 
 interface Props {
   addedLinks: Link[];
+  deletedLinks: number[];
   deleteAddedLink: (id: number) => void;
   editAddedLink: (editedLink: Link) => void;
   deleteDeploiedLink: (id: number) => void;
@@ -21,6 +22,7 @@ interface Props {
 
 export function EditLinkCardList({
   addedLinks,
+  deletedLinks,
   deleteAddedLink,
   editAddedLink,
   deleteDeploiedLink,
@@ -30,7 +32,6 @@ export function EditLinkCardList({
     queryKey: ["links"],
     queryFn: getLinks,
   });
-
   return (
     <ul className={cx("container")}>
       {addedLinks.map((link) => (
@@ -43,15 +44,17 @@ export function EditLinkCardList({
         </li>
       ))}
 
-      {links?.map((link) => (
-        <li key={link.id}>
-          <EditLinkCard
-            link={link}
-            onEdit={editDeploiedLink}
-            onDelete={deleteDeploiedLink}
-          />
-        </li>
-      ))}
+      {links
+        ?.filter((link) => !deletedLinks.includes(link.id))
+        ?.map((link) => (
+          <li key={link.id}>
+            <EditLinkCard
+              link={link}
+              onEdit={editDeploiedLink}
+              onDelete={deleteDeploiedLink}
+            />
+          </li>
+        ))}
     </ul>
   );
 }

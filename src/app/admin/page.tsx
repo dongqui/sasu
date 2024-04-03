@@ -1,11 +1,13 @@
 import { AdminHeader } from "@/widgets/header/ui/AdminHeader";
-import { AddLink } from "@/features/admin/ui";
+import { AddLinkForm } from "@/features/admin/ui/AddLinkForm";
+import { EditLinkList } from "@/features/admin/ui/EditLinkList";
 
 export default function Admin() {
   return (
     <>
       <AdminHeader />
-      <AddLink />
+      <AddLinkForm />
+      <EditLinkList />
     </>
   );
 }

@@ -32,7 +32,6 @@ export function EditLinkCard({ link, onDelete, onEdit }: Props) {
   function handleEdit() {
     const hasChanged =
       newData.title !== link.title || newData.description !== link.description;
-
     if (isEdit) {
       setIsEdit(false);
       if (hasChanged) {
@@ -52,12 +51,21 @@ export function EditLinkCard({ link, onDelete, onEdit }: Props) {
   };
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setNewData((prev) => ({ ...prev, title: e.currentTarget.value }));
+    setNewData((prev) => ({ ...prev, title: e.target.value }));
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setNewData((prev) => ({ ...prev, title: e.currentTarget.value }));
+    setNewData((prev) => ({ ...prev, description: e.target.value }));
 
+  const handlePressEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      handleEdit();
+    }
+  };
   return (
-    <div className={cx("container")} ref={handleOutsideClickRef}>
+    <div
+      className={cx("container")}
+      ref={handleOutsideClickRef}
+      onKeyUp={handlePressEnter}
+    >
       <div className={cx("img-wrapper")}>
         <ImageWithFallback src={link.image} alt="link meta data image" />
       </div>
@@ -70,7 +78,7 @@ export function EditLinkCard({ link, onDelete, onEdit }: Props) {
             onChange={handleChangeDescription}
           />
         ) : (
-          <h2 className={cx("description")}>{newData.title}</h2>
+          <h2 className={cx("description")}>{newData.description}</h2>
         )}
 
         {isEdit ? (

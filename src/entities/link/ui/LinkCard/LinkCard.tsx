@@ -35,7 +35,7 @@ export function LinkCard({
         <ImageWithFallback src={image} alt="link meta data image" />
       </div>
       <div className={cx("content")}>
-        <h2>{description}</h2>
+        <h2 className={cx("description")}>{description}</h2>
         <div className={cx("title")}>{title}</div>
         <div className={cx("info")}>
           {viewCount?.count ?? "-"}명이 구경함 - {timeSinceFormat(created_at)}

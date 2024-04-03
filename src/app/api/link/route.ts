@@ -30,6 +30,9 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const res = await supabase.from("Link").select();
+  const res = await supabase
+    .from("Link")
+    .select()
+    .order("created_at", { ascending: false });
   return Response.json(res.data);
 }

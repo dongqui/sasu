@@ -4,7 +4,7 @@ import type { Link } from "@/shared/config/types";
 
 const linksAtom = atom<{
   addedLinks: Link[];
-  deletedLinks: Number[];
+  deletedLinks: number[];
   editedLinks: Link[];
 }>({
   addedLinks: [],
@@ -15,10 +15,10 @@ const linksAtom = atom<{
 export const useUpdateLinks = () => {
   const [links, setLinks] = useAtom(linksAtom);
 
-  function setAddedLinks(links: Link[]) {
+  function addLink(link: Link) {
     setLinks((prev) => ({
       ...prev,
-      addedLinks: links,
+      addedLinks: [...prev.addedLinks, link],
     }));
   }
 
@@ -33,16 +33,18 @@ export const useUpdateLinks = () => {
     const index = links.addedLinks.findIndex(
       (link) => link.id === editedLink.id
     );
-    if (index > 0) {
-      setLinks((prev) => ({
-        ...prev,
-        addedLinks: prev.addedLinks
-          .splice(index, 1, {
-            ...prev.addedLinks[index],
-            ...editedLink,
-          })
-          .slice(),
-      }));
+    if (index > -1) {
+      setLinks((prev) => {
+        prev.addedLinks.splice(index, 1, {
+          ...prev.addedLinks[index],
+          ...editedLink,
+        });
+
+        return {
+          ...prev,
+          addedLinks: prev.addedLinks.slice(),
+        };
+      });
     }
   }
 
@@ -65,7 +67,9 @@ export const useUpdateLinks = () => {
     editAddedLink,
     deleteDeploiedLink,
     editDeploiedLink,
-    setAddedLinks,
+    addLink,
     addedLinks: links.addedLinks,
+    deletedLinks: links.deletedLinks,
+    editedLinks: links.editedLinks,
   };
 };
