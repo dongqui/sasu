@@ -24,9 +24,7 @@ export function AdminHeader() {
         editedLinks,
         deletedLinks,
       });
-      if (confirm("성공! 확인하러 가실~!?")) {
-        router.push("/");
-      }
+      alert("성공!");
     } catch (e) {
       alert(e);
       console.log(e);

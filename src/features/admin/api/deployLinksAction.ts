@@ -21,6 +21,7 @@ export async function deployLinksAction({
       ...deletedLinks.map((id) => deleteLink(id)),
       ...editedLinks.map((link) => updateLink(link)),
     ]);
+
     revalidatePath("/");
   } catch (e) {
     return e;
