@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
+
 import type { Link } from "@/shared/config/types";
 import { timeSinceFormat } from "@/shared/lib";
-import { ImageWithFallback } from "@/shared/ui";
 import { useViewCountMutation, useViewCountQuery } from "../../models";
 
 import styles from "./index.module.scss";
@@ -10,7 +11,9 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-interface Props extends Link {}
+interface Props extends Link {
+  priority: boolean;
+}
 
 export function LinkCard({
   id,
@@ -19,6 +22,7 @@ export function LinkCard({
   image,
   created_at,
   url,
+  priority,
 }: Props) {
   const { mutate } = useViewCountMutation();
   const { data: viewCount } = useViewCountQuery(id);
@@ -32,7 +36,13 @@ export function LinkCard({
   return (
     <a className={cx("container")} onClick={handleClick} href="#">
       <div className={cx("img-wrapper")}>
-        <ImageWithFallback src={image} alt="link meta data image" />
+        <Image
+          src={image || ""}
+          alt="link meta data image"
+          fill
+          priority={priority}
+          sizes="(max-width: 985px) 300w, 400w"
+        />
       </div>
       <div className={cx("content")}>
         <h2 className={cx("description")}>{description}</h2>

@@ -18,6 +18,7 @@
   }
 
   .img-wrapper {
+    position: relative;
     background-color: #dce2fa;
     height: 200px;
     width: 100%;
@@ -26,8 +27,8 @@
   }
   img {
     transition: transform 0.3s ease;
-    width: 100%;
     height: 200px;
+    object-fit: cover;
     object-fit: cover;
   }
 

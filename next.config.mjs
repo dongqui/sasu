@@ -4,5 +4,14 @@
 //   enabled: true,
 //   openAnalyzer: true,
 // });
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dptlwzemlfpgmncbydjx.supabase.co",
+      },
+    ],
+  },
+};
 export default nextConfig;

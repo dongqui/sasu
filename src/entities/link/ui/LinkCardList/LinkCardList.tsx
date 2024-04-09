@@ -14,9 +14,9 @@ export async function LinkCardList() {
 
   return (
     <ul className={cx("container")}>
-      {links.data?.map((link) => (
+      {links.data?.map((link, index) => (
         <li key={link.id}>
-          <LinkCard {...link} />
+          <LinkCard {...link} priority={index >= 12} />
         </li>
       ))}
     </ul>
