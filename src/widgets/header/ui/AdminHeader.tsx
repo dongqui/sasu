@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import { deployLinksAction } from "@/features/admin/api/deployLinksAction";
 import { useUpdateLinks } from "@/features/admin/models/useUpdateLinks";
-import { useRouter } from "next/navigation";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -13,7 +12,6 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 export function AdminHeader() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { addedLinks, editedLinks, deletedLinks } = useUpdateLinks();
   const handleClickDeploy = async () => {
