@@ -17,7 +17,7 @@ export async function deployLinksAction({
   // TODO: 타입 해결하기
   try {
     await Promise.all([
-      ...addedLinks.map((link) => addLink(link)),
+      ...addedLinks.map((link) => addLink(link)).reverse(),
       ...deletedLinks.map((id) => deleteLink(id)),
       ...editedLinks.map((link) => updateLink(link)),
     ]);

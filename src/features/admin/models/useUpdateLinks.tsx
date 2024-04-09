@@ -18,7 +18,7 @@ export const useUpdateLinks = () => {
   function addLink(link: Link) {
     setLinks((prev) => ({
       ...prev,
-      addedLinks: [...prev.addedLinks, link],
+      addedLinks: [link, ...prev.addedLinks],
     }));
   }
 
