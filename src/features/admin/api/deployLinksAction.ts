@@ -31,6 +31,42 @@ export async function deployLinksAction({
 async function addLink({ image, url, title, description }: Link) {
   if (!image) return;
 
+  const isAlreadyImageUploded = image.startsWith(
+    "https://dptlwzemlfpgmncbydjx.supabase.co"
+  );
+
+  const iamgeUrl = isAlreadyImageUploded
+    ? image
+    : await uploadSiteMetaImage(image);
+
+  const { data: newLink } = await supabase
+    .from("Link")
+    .insert({ url, title, description, image: iamgeUrl })
+    .select();
+
+  if (newLink) {
+    await supabase
+      .from("ViewCount")
+      .insert({ linkId: newLink[0].id, count: 0 });
+  }
+}
+
+async function deleteLink(linkId: number) {
+  await supabase.from("Link").delete().eq("id", linkId);
+}
+
+export async function updateLink(link: Link) {
+  await supabase
+    .from("Link")
+    .update({
+      title: link.title,
+      description: link.description,
+      image: link.image,
+    })
+    .eq("id", link.id);
+}
+
+async function uploadSiteMetaImage(image: string) {
   const res = await fetch(image);
   const arrayBuffer = await res.arrayBuffer();
   const imageFile = Buffer.from(arrayBuffer);
@@ -42,32 +78,11 @@ async function addLink({ image, url, title, description }: Link) {
       cacheControl: "3600",
       upsert: false,
     });
-
   if (pathData) {
-    const result = supabase.storage
+    const result = await supabase.storage
       .from("link-meta-image")
       .getPublicUrl(pathData?.path);
 
-    const { data: newLink } = await supabase
-      .from("Link")
-      .insert({ url, title, description, image: result?.data?.publicUrl })
-      .select();
-
-    if (newLink) {
-      await supabase
-        .from("ViewCount")
-        .insert({ linkId: newLink[0].id, count: 0 });
-    }
+    return result?.data?.publicUrl || null;
   }
-}
-
-async function deleteLink(linkId: number) {
-  await supabase.from("Link").delete().eq("id", linkId);
-}
-
-export async function updateLink(link: Link) {
-  await supabase
-    .from("Link")
-    .update({ title: link.title, description: link.description })
-    .eq("id", link.id);
 }

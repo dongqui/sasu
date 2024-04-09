@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import type { Link } from "@/shared/config/types";
 import { timeSinceFormat } from "@/shared/lib";
-import { ImageWithFallback, Row, PencilIcon, TrashBinIcon } from "@/shared/ui";
+import { Row, PencilIcon, TrashBinIcon } from "@/shared/ui";
 import { useOutsideClick } from "@/shared/hooks";
 import { useViewCountQuery } from "../../models";
 
@@ -20,25 +20,28 @@ interface Props {
 }
 
 export function EditLinkCard({ link, onDelete, onEdit }: Props) {
+  const imageInputRef = useRef<HTMLInputElement>(null);
   const { data: viewCount } = useViewCountQuery(link.id);
   const [isEdit, setIsEdit] = useState(false);
   const [newData, setNewData] = useState({
     title: link.title,
     description: link.description,
+    image: link.image,
   });
 
   const handleOutsideClickRef = useOutsideClick<HTMLDivElement>(handleEdit);
 
   function handleEdit() {
     const hasChanged =
-      newData.title !== link.title || newData.description !== link.description;
+      newData.title !== link.title ||
+      newData.description !== link.description ||
+      newData.image !== link.image;
     if (isEdit) {
       setIsEdit(false);
       if (hasChanged) {
         onEdit({
           ...link,
-          title: newData.title,
-          description: newData.description,
+          ...newData,
         });
       }
     }
@@ -54,20 +57,42 @@ export function EditLinkCard({ link, onDelete, onEdit }: Props) {
     setNewData((prev) => ({ ...prev, title: e.target.value }));
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setNewData((prev) => ({ ...prev, description: e.target.value }));
-
+  const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/link/image", {
+        method: "POST",
+        body: formData,
+      });
+      const { image } = await res.json();
+      setNewData((prev) => ({ ...prev, image }));
+    }
+  };
   const handlePressEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       handleEdit();
     }
   };
+
   return (
     <div
       className={cx("container")}
       ref={handleOutsideClickRef}
       onKeyUp={handlePressEnter}
     >
-      <div className={cx("img-wrapper")}>
-        <ImageWithFallback src={link.image} alt="link meta data image" />
+      <div
+        className={cx("img-wrapper")}
+        onClick={() => isEdit && imageInputRef.current?.click()}
+      >
+        <img src={newData.image} alt="link meta data image" />
+        <input
+          hidden
+          type="file"
+          ref={imageInputRef}
+          onChange={handleChangeImage}
+        />
       </div>
       <div className={cx("content")}>
         {isEdit ? (
