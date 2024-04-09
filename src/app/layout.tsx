@@ -35,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={verdana.className}>
+    <html lang="ko" suppressHydrationWarning={true}>
+      <body className={verdana.className} suppressHydrationWarning={true}>
         <Providers>
           <main className={cx("main")}>
             <div className={cx("container")}>{children}</div>
