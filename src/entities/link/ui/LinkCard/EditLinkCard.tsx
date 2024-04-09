@@ -86,7 +86,7 @@ export function EditLinkCard({ link, onDelete, onEdit }: Props) {
         className={cx("img-wrapper")}
         onClick={() => isEdit && imageInputRef.current?.click()}
       >
-        <img src={newData.image} alt="link meta data image" />
+        <img src={newData.image || ""} alt="link meta data image" />
         <input
           hidden
           type="file"
